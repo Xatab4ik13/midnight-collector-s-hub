@@ -13,6 +13,12 @@ const Footer = () => {
         <p className="text-muted-foreground text-xs">
           © 2024 WoW Midnight Shop. Все права защищены.
         </p>
+        <Link 
+          to="/privacy" 
+          className="inline-block text-muted-foreground text-xs hover:text-primary transition-colors underline"
+        >
+          Политика конфиденциальности
+        </Link>
       </div>
     </footer>
   );
