@@ -1,38 +1,33 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { BookOpen, Disc, Gem, Swords, Trophy, Shirt } from 'lucide-react';
+import { Key, Package, BookOpen, Heart, Award } from 'lucide-react';
 
 const contents = [
   {
+    icon: Key,
+    title: 'Цифровой ключ',
+    description: 'Ключ для РФ/РБ World of Warcraft: Midnight Epic Edition со всеми цифровыми бонусами',
+  },
+  {
+    icon: Package,
+    title: 'Коллекционная коробка',
+    description: 'Коробка коллекционного издания — примерно 35 × 33 × 9 см',
+  },
+  {
     icon: BookOpen,
-    title: 'Артбук',
-    description: 'Коллекционный артбук на 200+ страниц с концепт-артом и эксклюзивными иллюстрациями',
+    title: 'Артбук Midnight',
+    description: 'Артбук в твердой обложке — 208 страниц, размер 21,5 × 27 см',
   },
   {
-    icon: Disc,
-    title: 'Саундтрек',
-    description: 'Эксклюзивный саундтрек на виниловой пластинке и цифровая копия',
+    icon: Heart,
+    title: 'Реплика Темного Сердца',
+    description: 'Детализированная реплика Темного Сердца с LED подсветкой',
   },
   {
-    icon: Gem,
-    title: 'Статуэтка',
-    description: 'Коллекционная статуэтка высотой 25 см с LED-подсветкой',
-  },
-  {
-    icon: Swords,
-    title: 'Внутриигровые бонусы',
-    description: 'Эксклюзивный маунт, питомец, трансмогрификация и 30 дней игрового времени',
-  },
-  {
-    icon: Trophy,
-    title: 'Коллекционные карты',
-    description: 'Набор из 10 коллекционных карт с голографическим покрытием',
-  },
-  {
-    icon: Shirt,
-    title: 'Премиум футболка',
-    description: 'Эксклюзивная футболка с символикой Midnight (размер на выбор)',
+    icon: Award,
+    title: 'Коллекционный значок',
+    description: 'Значок с Ксал\'атат и Аратором',
   },
 ];
 
