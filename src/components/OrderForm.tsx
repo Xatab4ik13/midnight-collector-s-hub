@@ -11,8 +11,7 @@ import { z } from 'zod';
 const orderSchema = z.object({
   name: z.string().trim().min(2, 'Имя должно содержать минимум 2 символа').max(100),
   phone: z.string().trim().min(10, 'Введите корректный номер телефона').max(20),
-  email: z.string().trim().email('Введите корректный email').max(255),
-  address: z.string().trim().min(10, 'Введите полный адрес доставки').max(500),
+  address: z.string().trim().min(10, 'Введите полный адрес доставки СДЭК').max(500),
   comment: z.string().max(1000).optional(),
 });
 
@@ -23,7 +22,6 @@ const OrderForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    email: '',
     address: '',
     comment: '',
   });
@@ -47,11 +45,8 @@ const OrderForm = () => {
 
 👤 *Имя:* ${data.name}
 📞 *Телефон:* ${data.phone}
-📧 *Email:* ${data.email}
-📍 *Адрес:* ${data.address}
+📍 *Адрес СДЭК:* ${data.address}
 ${data.comment ? `💬 *Комментарий:* ${data.comment}` : ''}
-
-💰 *Сумма:* 24 990 ₽
     `.trim();
 
     try {
@@ -82,7 +77,7 @@ ${data.comment ? `💬 *Комментарий:* ${data.comment}` : ''}
         toast.success('Заявка отправлена!', {
           description: 'Мы свяжемся с вами в ближайшее время для подтверждения заказа.',
         });
-        setFormData({ name: '', phone: '', email: '', address: '', comment: '' });
+        setFormData({ name: '', phone: '', address: '', comment: '' });
       } else {
         toast.error('Ошибка отправки', {
           description: 'Пожалуйста, попробуйте позже или свяжитесь с нами напрямую.',
@@ -112,14 +107,11 @@ ${data.comment ? `💬 *Комментарий:* ${data.comment}` : ''}
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <span className="text-mystic font-display text-sm uppercase tracking-[0.3em] mb-4 block">
-              Оформление
-            </span>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-              Оставить заявку
+              Остались вопросы?
             </h2>
             <p className="text-muted-foreground">
-              Заполните форму и мы свяжемся с вами для подтверждения заказа
+              Заполните форму и мы свяжемся с вами
             </p>
           </motion.div>
 
@@ -162,22 +154,7 @@ ${data.comment ? `💬 *Комментарий:* ${data.comment}` : ''}
 
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">
-                Email *
-              </label>
-              <Input
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="your@email.com"
-                className="bg-background/50 border-border focus:border-gold"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
-                Адрес доставки *
+                Адрес доставки СДЭК *
               </label>
               <Input
                 name="address"
