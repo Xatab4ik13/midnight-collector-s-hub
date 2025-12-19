@@ -160,7 +160,7 @@ ${data.comment ? `💬 *Комментарий:* ${data.comment}` : ''}
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                placeholder="Город, улица, дом, квартира"
+                placeholder="Адрес СДЭК, из которого хотите забрать посылку"
                 className="bg-background/50 border-border focus:border-gold"
                 required
               />
