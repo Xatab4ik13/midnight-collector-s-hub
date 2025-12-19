@@ -15,11 +15,11 @@ const EditionSection = () => {
     addItem({
       id: 'wow-midnight-collectors',
       name: 'WoW: Midnight Collector\'s Edition',
-      price: 24990,
+      price: 18000,
       image: productBox,
     });
     toast.success('Товар добавлен в корзину!', {
-      description: 'Перейдите в корзину для оформления заказа',
+      description: 'Перейдите в корзину для оформления предзаказа',
     });
   };
 
@@ -69,7 +69,7 @@ const EditionSection = () => {
 
             <div className="flex flex-wrap gap-4 mb-8">
               <div className="bg-card border border-border rounded-lg px-4 py-3">
-                <span className="text-gold font-display font-bold text-2xl">24 990 ₽</span>
+                <span className="text-gold font-display font-bold text-2xl">18 000 ₽</span>
               </div>
               <div className="bg-mystic/20 border border-mystic/30 rounded-lg px-4 py-3">
                 <span className="text-mystic-light text-sm">В наличии: 47 шт.</span>
