@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -15,11 +15,17 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        // Custom WoW variants
+        gold: "bg-gradient-to-r from-gold to-gold-dark text-primary-foreground font-display font-semibold uppercase tracking-wider hover:shadow-[0_0_30px_hsl(45_93%_58%_/_0.5)] hover:scale-105 border border-gold/30",
+        mystic: "bg-gradient-to-r from-mystic to-mystic-light text-foreground font-display font-medium uppercase tracking-wide hover:shadow-[0_0_30px_hsl(262_80%_55%_/_0.5)] hover:scale-105 border border-mystic/30",
+        hero: "bg-gradient-to-r from-gold via-gold-dark to-gold text-primary-foreground font-display font-bold uppercase tracking-widest text-lg hover:shadow-[0_0_50px_hsl(45_93%_58%_/_0.6)] hover:scale-105 border-2 border-gold/50 px-8 py-6",
+        ghostGold: "text-gold hover:text-gold-dark hover:bg-gold/10 font-display uppercase tracking-wide",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
+        xl: "h-14 rounded-lg px-10 text-lg",
         icon: "h-10 w-10",
       },
     },
@@ -27,7 +33,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 export interface ButtonProps
@@ -40,7 +46,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
-  },
+  }
 );
 Button.displayName = "Button";
 
