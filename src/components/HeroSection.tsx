@@ -1,14 +1,9 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ShoppingCart } from 'lucide-react';
-import { useCart } from '@/lib/cart';
+import { ChevronDown } from 'lucide-react';
 import heroImage from '@/assets/hero-midnight.jpg';
 
 const HeroSection = () => {
-  const { getTotalItems } = useCart();
-  const totalItems = getTotalItems();
-
   const scrollToOrder = () => {
     const element = document.getElementById('order');
     if (element) {
@@ -18,21 +13,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Cart Button */}
-      <Link to="/cart" className="absolute top-6 right-6 z-20">
-        <Button variant="ghostGold" size="icon" className="relative">
-          <ShoppingCart className="h-6 w-6" />
-          {totalItems > 0 && (
-            <motion.span
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="absolute -top-1 -right-1 bg-mystic text-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold"
-            >
-              {totalItems}
-            </motion.span>
-          )}
-        </Button>
-      </Link>
 
       {/* Background Image */}
       <div
