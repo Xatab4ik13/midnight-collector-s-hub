@@ -215,7 +215,7 @@ ${itemsList}
                       onClick={() => setShowCheckout(true)}
                     >
                       <CreditCard className="w-5 h-5" />
-                      Оформить заказ
+                      Оформить предзаказ
                     </Button>
                   ) : (
                     <form onSubmit={handleCheckout} className="space-y-4">
