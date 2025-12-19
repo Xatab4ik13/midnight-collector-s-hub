@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import { useCart } from '@/lib/cart';
 import { toast } from 'sonner';
-import heroImage from '@/assets/hero-midnight.jpg';
+import heroImage from '@/assets/hero-midnight.webp';
 import productBox from '@/assets/product-box.jpg';
 
 const HeroSection = () => {
