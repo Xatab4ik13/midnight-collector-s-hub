@@ -4,7 +4,6 @@ import { Minus, Plus, Trash2, ArrowLeft, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Footer from '@/components/Footer';
-import FloatingCart from '@/components/FloatingCart';
 import { useCart } from '@/lib/cart';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -281,7 +280,6 @@ ${itemsList}
         </div>
       </main>
       <Footer />
-      <FloatingCart />
     </div>
   );
 };
