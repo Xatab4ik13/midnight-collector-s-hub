@@ -3,6 +3,7 @@ import EditionSection from '@/components/EditionSection';
 import ContentsSection from '@/components/ContentsSection';
 import OrderForm from '@/components/OrderForm';
 import Footer from '@/components/Footer';
+import FloatingCart from '@/components/FloatingCart';
 
 const Index = () => {
   return (
@@ -14,6 +15,7 @@ const Index = () => {
         <OrderForm />
       </main>
       <Footer />
+      <FloatingCart />
     </div>
   );
 };
