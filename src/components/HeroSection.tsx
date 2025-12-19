@@ -1,14 +1,27 @@
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
+import { useCart } from '@/lib/cart';
+import { toast } from 'sonner';
 import heroImage from '@/assets/hero-midnight.jpg';
+import productBox from '@/assets/product-box.jpg';
 
 const HeroSection = () => {
-  const scrollToOrder = () => {
-    const element = document.getElementById('order');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const navigate = useNavigate();
+  const { addItem } = useCart();
+
+  const handlePreorder = () => {
+    addItem({
+      id: 'wow-midnight-collectors',
+      name: "WoW: Midnight Collector's Edition",
+      price: 18000,
+      image: productBox,
+    });
+    toast.success('Товар добавлен в корзину!', {
+      description: 'Перейдите в корзину для оформления предзаказа',
+    });
+    navigate('/cart');
   };
 
   return (
@@ -65,7 +78,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <Button variant="hero" size="xl" onClick={scrollToOrder}>
+          <Button variant="hero" size="xl" onClick={handlePreorder}>
             Оформить предзаказ
           </Button>
           <span className="text-gold font-display text-2xl md:text-3xl font-bold">
