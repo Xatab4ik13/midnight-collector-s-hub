@@ -9,6 +9,7 @@ import { useCart } from '@/lib/cart';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { supabase } from '@/integrations/supabase/client';
 
 const checkoutSchema = z.object({
   name: z.string().trim().min(2, 'Имя должно содержать минимум 2 символа'),
@@ -41,39 +42,28 @@ const Cart = () => {
       // Simulate payment processing
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Send to Telegram (same as order form)
-      const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-      const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+      // Send to Telegram via Edge Function
+      const itemsList = items
+        .map((item) => `• ${item.name} x${item.quantity} — ${(item.price * item.quantity).toLocaleString()} ₽`)
+        .join('\n');
 
-      if (botToken && chatId) {
-        const itemsList = items
-          .map((item) => `• ${item.name} x${item.quantity} — ${(item.price * item.quantity).toLocaleString()} ₽`)
-          .join('\n');
+      const message = `
+💳 <b>Новый заказ (оплачен)</b>
 
-        const message = `
-💳 *Новый заказ (оплачен)*
+👤 <b>Имя:</b> ${formData.name}
+📞 <b>Телефон:</b> ${formData.phone}
+📍 <b>Адрес СДЭК:</b> ${formData.address}
+🔑 <b>Вскрыть и отправить ключ раньше:</b> ${sendKeyEarly ? 'Да' : 'Нет'}
 
-👤 *Имя:* ${formData.name}
-📞 *Телефон:* ${formData.phone}
-📍 *Адрес СДЭК:* ${formData.address}
-🔑 *Вскрыть и отправить ключ раньше:* ${sendKeyEarly ? 'Да' : 'Нет'}
-
-📦 *Товары:*
+📦 <b>Товары:</b>
 ${itemsList}
 
-💰 *Итого:* ${getTotalPrice().toLocaleString()} ₽
-        `.trim();
+💰 <b>Итого:</b> ${getTotalPrice().toLocaleString()} ₽
+      `.trim();
 
-        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: 'Markdown',
-          }),
-        });
-      }
+      await supabase.functions.invoke('send-telegram', {
+        body: { message },
+      });
 
       toast.success('Заказ оформлен!', {
         description: 'Спасибо за покупку! Мы свяжемся с вами для подтверждения.',

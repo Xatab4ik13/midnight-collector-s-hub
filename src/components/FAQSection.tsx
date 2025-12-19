@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { Send, Loader2, MessageCircleQuestion } from 'lucide-react';
 import { z } from 'zod';
+import { supabase } from '@/integrations/supabase/client';
 
 const faqs = [
   {
@@ -51,33 +52,20 @@ const FAQSection = () => {
   };
 
   const sendToTelegram = async (data: typeof formData) => {
-    const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-    const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
-
-    if (!botToken || !chatId) {
-      return true;
-    }
-
     const message = `
-🎮 *Новая заявка на WoW: Midnight*
+🎮 <b>Новая заявка на WoW: Midnight</b>
 
-👤 *Имя:* ${data.name}
-📞 *Телефон:* ${data.phone}
-📍 *Адрес СДЭК:* ${data.address}
-${data.comment ? `💬 *Комментарий:* ${data.comment}` : ''}
+👤 <b>Имя:</b> ${data.name}
+📞 <b>Телефон:</b> ${data.phone}
+📍 <b>Адрес СДЭК:</b> ${data.address}
+${data.comment ? `💬 <b>Комментарий:</b> ${data.comment}` : ''}
     `.trim();
 
     try {
-      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: 'Markdown',
-        }),
+      const { error } = await supabase.functions.invoke('send-telegram', {
+        body: { message },
       });
-      return response.ok;
+      return !error;
     } catch {
       return false;
     }
