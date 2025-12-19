@@ -1,6 +1,6 @@
 import HeroSection from '@/components/HeroSection';
-import EditionSection from '@/components/EditionSection';
 import ContentsSection from '@/components/ContentsSection';
+import GuaranteesSection from '@/components/GuaranteesSection';
 import OrderForm from '@/components/OrderForm';
 import Footer from '@/components/Footer';
 import FloatingCart from '@/components/FloatingCart';
@@ -10,8 +10,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <main>
         <HeroSection />
-        <EditionSection />
         <ContentsSection />
+        <GuaranteesSection />
         <OrderForm />
       </main>
       <Footer />
