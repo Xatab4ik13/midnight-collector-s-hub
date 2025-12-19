@@ -235,7 +235,7 @@ ${itemsList}
                         type="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Email для чека"
+                        placeholder="Email"
                         className="bg-background/50"
                         required
                       />
