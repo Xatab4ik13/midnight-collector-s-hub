@@ -13,6 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 
 const checkoutSchema = z.object({
   name: z.string().trim().min(2, 'Имя должно содержать минимум 2 символа'),
+  email: z.string().trim().email('Введите корректный email'),
   phone: z.string().trim().min(10, 'Введите корректный номер телефона'),
   address: z.string().trim().min(10, 'Введите полный адрес доставки СДЭК'),
 });
@@ -24,6 +25,7 @@ const Cart = () => {
   const [sendKeyEarly, setSendKeyEarly] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
     phone: '',
     address: '',
   });
@@ -48,9 +50,10 @@ const Cart = () => {
         .join('\n');
 
       const message = `
-💳 <b>Новый заказ (оплачен)</b>
+💳 <b>Новый предзаказ</b>
 
 👤 <b>Имя:</b> ${formData.name}
+📧 <b>Email:</b> ${formData.email}
 📞 <b>Телефон:</b> ${formData.phone}
 📍 <b>Адрес СДЭК:</b> ${formData.address}
 🔑 <b>Вскрыть и отправить ключ раньше:</b> ${sendKeyEarly ? 'Да' : 'Нет'}
@@ -65,8 +68,8 @@ ${itemsList}
         body: { message },
       });
 
-      toast.success('Заказ оформлен!', {
-        description: 'Спасибо за покупку! Мы свяжемся с вами для подтверждения.',
+      toast.success('Предзаказ оформлен!', {
+        description: 'Спасибо! Мы свяжемся с вами для подтверждения.',
       });
       clearCart();
       setShowCheckout(false);
@@ -224,6 +227,15 @@ ${itemsList}
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Ваше имя"
+                        className="bg-background/50"
+                        required
+                      />
+                      <Input
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Email для чека"
                         className="bg-background/50"
                         required
                       />
