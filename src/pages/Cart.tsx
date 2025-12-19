@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { Minus, Plus, Trash2, ArrowLeft, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FloatingCart from '@/components/FloatingCart';
 import { useCart } from '@/lib/cart';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -98,8 +98,7 @@ ${itemsList}
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      <main className="flex-1 pt-24 pb-16">
+      <main className="flex-1 pt-12 pb-16">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -282,6 +281,7 @@ ${itemsList}
         </div>
       </main>
       <Footer />
+      <FloatingCart />
     </div>
   );
 };
