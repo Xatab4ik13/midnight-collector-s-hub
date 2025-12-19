@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Minus, Plus, Trash2, ArrowLeft, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import Footer from '@/components/Footer';
 import { useCart } from '@/lib/cart';
 import { useState } from 'react';
@@ -12,18 +13,17 @@ import { z } from 'zod';
 const checkoutSchema = z.object({
   name: z.string().trim().min(2, 'Имя должно содержать минимум 2 символа'),
   phone: z.string().trim().min(10, 'Введите корректный номер телефона'),
-  email: z.string().trim().email('Введите корректный email'),
-  address: z.string().trim().min(10, 'Введите полный адрес доставки'),
+  address: z.string().trim().min(10, 'Введите полный адрес доставки СДЭК'),
 });
 
 const Cart = () => {
   const { items, updateQuantity, removeItem, getTotalPrice, clearCart } = useCart();
   const [showCheckout, setShowCheckout] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [sendKeyEarly, setSendKeyEarly] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    email: '',
     address: '',
   });
 
@@ -55,8 +55,8 @@ const Cart = () => {
 
 👤 *Имя:* ${formData.name}
 📞 *Телефон:* ${formData.phone}
-📧 *Email:* ${formData.email}
-📍 *Адрес:* ${formData.address}
+📍 *Адрес СДЭК:* ${formData.address}
+🔑 *Вскрыть и отправить ключ раньше:* ${sendKeyEarly ? 'Да' : 'Нет'}
 
 📦 *Товары:*
 ${itemsList}
@@ -247,22 +247,27 @@ ${itemsList}
                         required
                       />
                       <Input
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="Email"
-                        className="bg-background/50"
-                        required
-                      />
-                      <Input
                         name="address"
                         value={formData.address}
                         onChange={handleChange}
-                        placeholder="Адрес доставки"
+                        placeholder="Адрес доставки СДЭК"
                         className="bg-background/50"
                         required
                       />
+                      <div className="flex items-center space-x-3">
+                        <Checkbox
+                          id="sendKeyEarly"
+                          checked={sendKeyEarly}
+                          onCheckedChange={(checked) => setSendKeyEarly(checked === true)}
+                          className="border-gold data-[state=checked]:bg-gold data-[state=checked]:border-gold"
+                        />
+                        <label
+                          htmlFor="sendKeyEarly"
+                          className="text-sm text-muted-foreground cursor-pointer leading-tight"
+                        >
+                          Вскрыть коробку и отправить ключ раньше
+                        </label>
+                      </div>
                       <Button
                         type="submit"
                         variant="hero"
