@@ -32,12 +32,9 @@ const Header = () => {
           className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-gold/20 shadow-lg shadow-background/50"
         >
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between h-14">
-              <span className="font-display text-lg font-bold text-gradient-gold">
-                WoW: Midnight
-              </span>
+            <div className="flex items-center justify-end h-14">
               <Button variant="gold" size="sm" onClick={scrollToOrder}>
-                Оформить заказ
+                Оформить предзаказ
               </Button>
             </div>
           </div>
