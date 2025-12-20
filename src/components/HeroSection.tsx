@@ -5,13 +5,15 @@ import { ChevronDown } from 'lucide-react';
 import { useCart } from '@/lib/cart';
 import { toast } from 'sonner';
 import heroImage from '@/assets/hero-midnight.webp';
-import productBox from '@/assets/product-box.jpg';
 
 const HeroSection = () => {
   const navigate = useNavigate();
   const { addItem } = useCart();
 
-  const handlePreorder = () => {
+  const handlePreorder = async () => {
+    // Lazy-load product image to speed up initial page load
+    const { default: productBox } = await import('@/assets/product-box.jpg');
+
     addItem({
       id: 'wow-midnight-collectors',
       name: "WoW: Midnight Collector's Edition",
