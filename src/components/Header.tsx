@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { useCart } from '@/lib/cart';
+import { toast } from 'sonner';
+import productBox from '@/assets/product-box.jpg';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const { addItem } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,11 +19,17 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToOrder = () => {
-    const element = document.getElementById('order');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handlePreorder = () => {
+    addItem({
+      id: 'wow-midnight-collectors',
+      name: "WoW: Midnight Collector's Edition",
+      price: 18000,
+      image: productBox,
+    });
+    toast.success('Товар добавлен в корзину!', {
+      description: 'Перейдите в корзину для оформления предзаказа',
+    });
+    navigate('/cart');
   };
 
   return (
@@ -33,7 +44,7 @@ const Header = () => {
         >
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-end h-14">
-              <Button variant="gold" size="sm" onClick={scrollToOrder}>
+              <Button variant="gold" size="sm" onClick={handlePreorder}>
                 Оформить предзаказ
               </Button>
             </div>
