@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://wow-midnight.ru/sitemap.xml
+Sitemap: https://wowmidnight.store/sitemap.xml
