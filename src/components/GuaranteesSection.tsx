@@ -31,7 +31,7 @@ const GuaranteesSection = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section className="py-20 md:py-32 relative overflow-hidden" ref={ref}>
+    <section id="guarantees" className="py-20 md:py-32 relative overflow-hidden" ref={ref}>
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[150px]" />
 
