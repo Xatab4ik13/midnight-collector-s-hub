@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
+import PaymentMethods from './PaymentMethods';
 
 const Footer = () => {
   return (
     <footer className="bg-midnight-light border-t border-border/50 py-8">
-      <div className="container mx-auto px-4 text-center space-y-3">
+      <div className="container mx-auto px-4 text-center space-y-4">
+        <div className="mb-2">
+          <p className="text-muted-foreground text-xs mb-3">Способы оплаты</p>
+          <PaymentMethods />
+        </div>
         <p className="text-muted-foreground text-sm">
           Индивидуальный предприниматель Скилягин Михаил Михайлович
         </p>
