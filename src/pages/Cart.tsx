@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import Footer from '@/components/Footer';
+import PaymentMethods from '@/components/PaymentMethods';
 import { useCart } from '@/lib/cart';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -278,6 +279,7 @@ ${itemsList}
                       >
                         {isProcessing ? 'Обработка...' : 'Оплатить'}
                       </Button>
+                      <PaymentMethods className="mt-4 pt-4 border-t border-border/30" />
                     </form>
                   )}
                 </motion.div>
