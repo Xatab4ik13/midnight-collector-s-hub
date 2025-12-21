@@ -29,12 +29,13 @@ const faqs = [
   },
 ];
 
-const orderSchema = z.object({
+const contactSchema = z.object({
   name: z.string().trim().min(2, 'Имя должно содержать минимум 2 символа').max(100),
   phone: z.string().trim().min(10, 'Введите корректный номер телефона').max(20),
-  address: z.string().trim().min(10, 'Введите полный адрес доставки СДЭК').max(500),
   comment: z.string().max(1000).optional(),
 });
+
+const TELEGRAM_LINK = 'https://t.me/wowmidnight';
 
 const FAQSection = () => {
   const ref = useRef(null);
@@ -43,7 +44,6 @@ const FAQSection = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    address: '',
     comment: '',
   });
 
@@ -53,11 +53,10 @@ const FAQSection = () => {
 
   const sendToTelegram = async (data: typeof formData) => {
     const message = `
-🎮 <b>Новая заявка на WoW: Midnight</b>
+🎮 <b>Новый вопрос — WoW: Midnight</b>
 
 👤 <b>Имя:</b> ${data.name}
 📞 <b>Телефон:</b> ${data.phone}
-📍 <b>Адрес СДЭК:</b> ${data.address}
 ${data.comment ? `💬 <b>Комментарий:</b> ${data.comment}` : ''}
     `.trim();
 
@@ -76,14 +75,16 @@ ${data.comment ? `💬 <b>Комментарий:</b> ${data.comment}` : ''}
     setIsLoading(true);
 
     try {
-      orderSchema.parse(formData);
+      contactSchema.parse(formData);
       const success = await sendToTelegram(formData);
 
       if (success) {
         toast.success('Заявка отправлена!', {
           description: 'Мы свяжемся с вами в ближайшее время.',
         });
-        setFormData({ name: '', phone: '', address: '', comment: '' });
+        setFormData({ name: '', phone: '', comment: '' });
+        // Открываем Telegram после успешной отправки
+        window.open(TELEGRAM_LINK, '_blank');
       } else {
         toast.error('Ошибка отправки', {
           description: 'Пожалуйста, попробуйте позже.',
@@ -198,20 +199,6 @@ ${data.comment ? `💬 <b>Комментарий:</b> ${data.comment}` : ''}
                     required
                   />
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  Адрес доставки СДЭК *
-                </label>
-                <Input
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  placeholder="Адрес СДЭК, из которого хотите забрать посылку"
-                  className="bg-background/50 border-border focus:border-gold"
-                  required
-                />
               </div>
 
               <div>
