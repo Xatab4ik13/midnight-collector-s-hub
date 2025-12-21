@@ -65,6 +65,41 @@
         "seller": {
           "@type": "Organization",
           "name": "WoW Midnight Shop"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "RUB"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "RU"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": "1",
+              "maxValue": "3",
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": "14",
+              "maxValue": "28",
+              "unitCode": "DAY"
+            }
+          }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "RU",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": "14",
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn"
         }
       },
       "aggregateRating": {
@@ -102,11 +137,7 @@
           }
         }
       ],
-      "category": "Видеоигры",
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Gamers"
-      }
+      "category": "Видеоигры"
     }
     </script>
 
