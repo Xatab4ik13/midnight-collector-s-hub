@@ -118,7 +118,7 @@ const handler = async (req: Request): Promise<Response> => {
 
             <!-- Telegram button -->
             <div style="text-align: center;">
-              <a href="https://t.me/wowmidnight" target="_blank" style="display: inline-block; background-color: #0088cc; color: #fff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 500;">
+              <a href="https://t.me/wowmidnighstore_bot" target="_blank" style="display: inline-block; background-color: #0088cc; color: #fff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 500;">
                 📱 Связаться в Telegram
               </a>
             </div>
