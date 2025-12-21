@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Cinzel', 'serif'],
+        sans: ['Montserrat', 'sans-serif'],
+        display: ['Playfair Display', 'serif'],
+        accent: ['Cinzel', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
