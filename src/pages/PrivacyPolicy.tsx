@@ -134,7 +134,7 @@ const PrivacyPolicy = () => {
               Индивидуальный предприниматель Скилягин Михаил Михайлович<br />
               ИНН: 781151655900<br />
               ОГРН/ОГРНИП: 318784700314243<br />
-              Электронная почта: info@wow-midnight.ru
+              Электронная почта: orders@wowmidnight.store
             </p>
           </section>
         </article>
