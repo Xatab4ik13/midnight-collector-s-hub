@@ -21,6 +21,12 @@ interface OrderEmailRequest {
   sendKeyEarly: boolean;
 }
 
+const generateOrderNumber = (): string => {
+  const timestamp = Date.now().toString(36).toUpperCase();
+  const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `WM-${timestamp}-${random}`;
+};
+
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -30,7 +36,8 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { customerName, customerEmail, items, total, sendKeyEarly }: OrderEmailRequest = await req.json();
 
-    console.log("Sending order confirmation email to:", customerEmail);
+    const orderNumber = generateOrderNumber();
+    console.log("Sending order confirmation email to:", customerEmail, "Order:", orderNumber);
 
     const itemsHtml = items
       .map(
@@ -60,10 +67,16 @@ const handler = async (req: Request): Promise<Response> => {
 
           <!-- Main content -->
           <div style="background-color: #111118; border-radius: 16px; padding: 32px; border: 1px solid #222;">
-            <h2 style="color: #fff; font-size: 22px; margin: 0 0 8px 0;">Спасибо за предзаказ, ${customerName}!</h2>
-            <p style="color: #888; font-size: 15px; line-height: 1.6; margin: 0 0 24px 0;">
-              Мы получили ваш заказ и свяжемся с вами для подтверждения оплаты.
+            <h2 style="color: #fff; font-size: 22px; margin: 0 0 8px 0;">Спасибо за покупку, ${customerName}!</h2>
+            <p style="color: #888; font-size: 15px; line-height: 1.6; margin: 0 0 16px 0;">
+              Ваш платёж успешно получен. Ниже информация о вашем заказе.
             </p>
+            
+            <!-- Order number -->
+            <div style="background-color: #1a1a0f; border: 1px solid #d4af3744; border-radius: 12px; padding: 16px; margin-bottom: 24px; text-align: center;">
+              <p style="color: #888; font-size: 12px; margin: 0 0 4px 0; text-transform: uppercase; letter-spacing: 1px;">Номер заказа</p>
+              <p style="color: #d4af37; font-size: 20px; font-weight: bold; margin: 0; letter-spacing: 2px;">${orderNumber}</p>
+            </div>
 
             <!-- Order details -->
             <div style="background-color: #0a0a0f; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
@@ -95,20 +108,25 @@ const handler = async (req: Request): Promise<Response> => {
             ` : ''}
 
             <!-- Next steps -->
-            <div style="background-color: #0a0a0f; border-radius: 12px; padding: 24px;">
+            <div style="background-color: #0a0a0f; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
               <h3 style="color: #fff; font-size: 16px; margin: 0 0 12px 0;">Что дальше?</h3>
               <ul style="color: #888; font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px;">
-                <li>Мы свяжемся с вами для подтверждения заказа</li>
-                <li>После оплаты вы получите трек-номер для отслеживания</li>
-                <li>Доставка осуществляется через СДЭК</li>
+                <li>Мы свяжемся с вами для подтверждения адреса доставки</li>
+                <li>Вы получили чек и номер заказа — сохраните его</li>
               </ul>
+            </div>
+
+            <!-- Telegram button -->
+            <div style="text-align: center;">
+              <a href="https://t.me/wowmidnight" target="_blank" style="display: inline-block; background-color: #0088cc; color: #fff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-size: 16px; font-weight: 500;">
+                📱 Связаться в Telegram
+              </a>
             </div>
           </div>
 
           <!-- Footer -->
           <div style="text-align: center; margin-top: 40px; color: #666; font-size: 12px;">
             <p style="margin: 0;">© 2025 wowmidnight.store</p>
-            <p style="margin: 8px 0 0 0;">Если у вас есть вопросы, напишите нам в Telegram</p>
           </div>
         </div>
       </body>
@@ -118,13 +136,13 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResponse = await resend.emails.send({
       from: "WoW Midnight <orders@wowmidnight.store>",
       to: [customerEmail],
-      subject: "Спасибо за предзаказ — WoW Midnight",
+      subject: `Заказ ${orderNumber} — WoW Midnight`,
       html: emailHtml,
     });
 
     console.log("Email sent successfully:", emailResponse);
 
-    return new Response(JSON.stringify({ success: true, data: emailResponse }), {
+    return new Response(JSON.stringify({ success: true, data: emailResponse, orderNumber }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
