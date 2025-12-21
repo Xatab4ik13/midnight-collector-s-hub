@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
-        display: ['Playfair Display', 'serif'],
+        sans: ['Raleway', 'sans-serif'],
+        display: ['Cormorant Garamond', 'serif'],
         accent: ['Cinzel', 'serif'],
       },
       colors: {
