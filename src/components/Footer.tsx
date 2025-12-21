@@ -16,6 +16,14 @@ const Footer = () => {
           ИНН: 781151655900, ОГРН/ОГРНИП: 318784700314243
         </p>
         <p className="text-muted-foreground text-xs">
+          <a 
+            href="mailto:orders@wowmidnight.store" 
+            className="hover:text-primary transition-colors underline"
+          >
+            orders@wowmidnight.store
+          </a>
+        </p>
+        <p className="text-muted-foreground text-xs">
           © 2025 wowmidnight.store. Все права защищены.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
