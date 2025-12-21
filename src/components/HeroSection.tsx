@@ -104,11 +104,11 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+          className="font-display text-4xl md:text-6xl lg:text-7xl font-medium mb-6 tracking-wide"
         >
-          <span className="text-gradient-gold">World of Warcraft</span>
+          <span className="text-mystic-light">World of Warcraft:</span>
           <br />
-          <span className="text-foreground italic">MIDNIGHT</span>
+          <span className="text-mystic-light">Midnight</span>
         </motion.h1>
 
         <motion.p
@@ -216,7 +216,7 @@ const HeroSection = () => {
             onClick={handlePreorder}
             className="relative overflow-hidden group"
           >
-            <span className="relative z-10">Купить со скидкой</span>
+            <span className="relative z-10">Оформить предзаказ</span>
             <motion.div 
               className="absolute inset-0 bg-gradient-to-r from-gold-dark via-gold to-gold-dark"
               animate={{ x: ['0%', '100%', '0%'] }}
