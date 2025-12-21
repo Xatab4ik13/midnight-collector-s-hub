@@ -95,7 +95,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-4"
         >
-          <span className="text-mystic-light font-display text-sm md:text-base uppercase tracking-[0.3em]">
+          <span className="text-gold font-sans text-sm md:text-base uppercase tracking-[0.3em] font-medium">
             Коллекционное издание
           </span>
         </motion.div>
@@ -106,8 +106,8 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="font-display text-4xl md:text-6xl lg:text-7xl font-semibold mb-6 tracking-wide"
         >
-          <span className="text-3d-gold block">World of Warcraft:</span>
-          <span className="text-3d-gold block mt-2">Midnight</span>
+          <span className="text-gold block">World of Warcraft:</span>
+          <span className="text-foreground block mt-2">Midnight</span>
         </motion.h1>
 
         <motion.p
