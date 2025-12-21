@@ -90,6 +90,26 @@
     background-image: var(--gradient-gold);
   }
 
+  .text-3d-gold {
+    color: hsl(var(--gold));
+    text-shadow: 
+      0 1px 0 hsl(42 80% 45%),
+      0 2px 0 hsl(40 75% 40%),
+      0 3px 0 hsl(38 70% 35%),
+      0 4px 0 hsl(36 65% 30%),
+      0 5px 10px hsl(0 0% 0% / 0.5),
+      0 0 40px hsl(45 93% 58% / 0.4);
+  }
+
+  .text-3d-light {
+    color: hsl(var(--foreground));
+    text-shadow: 
+      0 1px 0 hsl(220 20% 80%),
+      0 2px 0 hsl(220 15% 70%),
+      0 3px 5px hsl(0 0% 0% / 0.3),
+      0 0 30px hsl(262 60% 55% / 0.3);
+  }
+
   .glow-gold {
     box-shadow: var(--shadow-gold);
   }
