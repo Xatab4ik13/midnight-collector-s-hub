@@ -69,6 +69,21 @@ ${itemsList}
         body: { message },
       });
 
+      // Send confirmation email to customer
+      await supabase.functions.invoke('send-order-email', {
+        body: {
+          customerName: formData.name,
+          customerEmail: formData.email,
+          items: items.map(item => ({
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+          total: getTotalPrice(),
+          sendKeyEarly,
+        },
+      });
+
       toast.success('Предзаказ оформлен!', {
         description: 'Спасибо! Мы свяжемся с вами для подтверждения.',
       });
