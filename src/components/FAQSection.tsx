@@ -35,7 +35,7 @@ const contactSchema = z.object({
   comment: z.string().max(1000).optional(),
 });
 
-const TELEGRAM_LINK = 'https://t.me/wowmidnight';
+const TELEGRAM_LINK = 'https://t.me/wowmidnighstore_bot';
 
 const FAQSection = () => {
   const ref = useRef(null);
