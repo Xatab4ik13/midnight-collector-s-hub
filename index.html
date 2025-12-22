@@ -231,8 +231,18 @@
     <!-- T-Bank Payment Integration -->
     <script>
       function onPaymentIntegrationLoad() {
-        console.log('T-Bank integration script loaded');
-        window.TBankIntegrationLoaded = true;
+        const initConfig = {
+          terminalKey: 'YOUR_TERMINAL_KEY' // Заменить на реальный TerminalKey
+        };
+        
+        PaymentIntegration.init(initConfig)
+          .then(function() {
+            console.log('T-Bank integration initialized');
+            window.TBankIntegrationLoaded = true;
+          })
+          .catch(function(error) {
+            console.error('T-Bank integration error:', error);
+          });
       }
     </script>
     <script src="https://integrationjs.tbank.ru/integration.js" onload="onPaymentIntegrationLoad()" async></script>
