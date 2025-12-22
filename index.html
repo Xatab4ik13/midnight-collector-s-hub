@@ -227,5 +227,14 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- T-Bank Payment Integration -->
+    <script>
+      function onPaymentIntegrationLoad() {
+        console.log('T-Bank integration script loaded');
+        window.TBankIntegrationLoaded = true;
+      }
+    </script>
+    <script src="https://integrationjs.tbank.ru/integration.js" onload="onPaymentIntegrationLoad()" async></script>
   </body>
 </html>
