@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import Footer from '@/components/Footer';
 import FloatingCart from '@/components/FloatingCart';
+import FloatingTelegram from '@/components/FloatingTelegram';
 
 // Lazy load sections below the fold
 const ContentsSection = lazy(() => import('@/components/ContentsSection'));
@@ -34,6 +35,7 @@ const Index = () => {
       </main>
       <Footer />
       <FloatingCart />
+      <FloatingTelegram />
     </div>
   );
 };
