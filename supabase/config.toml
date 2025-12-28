@@ -5,3 +5,9 @@ verify_jwt = false
 
 [functions.send-order-email]
 verify_jwt = false
+
+[functions.intellectmoney-webhook]
+verify_jwt = false
+
+[functions.create-intellectmoney-payment]
+verify_jwt = false
