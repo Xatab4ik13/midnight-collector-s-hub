@@ -40,9 +40,10 @@ serve(async (req) => {
     });
 
     // Verify the payment status
-    if (paymentStatus === '5' || paymentStatus === '3') {
-      // Payment successful (5 = completed, 3 = paid)
-      console.log('Payment successful for order:', orderId, 'IntellectMoney paymentId:', paymentId);
+    // Status 3 = pending/processing, Status 5 = completed/successful
+    if (paymentStatus === '5') {
+      // Payment fully completed
+      console.log('Payment completed for order:', orderId, 'IntellectMoney paymentId:', paymentId);
 
       // Send notification to Telegram
       const TELEGRAM_BOT_TOKEN = Deno.env.get('TELEGRAM_BOT_TOKEN');
