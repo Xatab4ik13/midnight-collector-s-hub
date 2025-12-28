@@ -40,7 +40,7 @@ const HeroSection = () => {
     addItem({
       id: 'wow-midnight-collectors',
       name: "WoW: Midnight Collector's Edition",
-      price: 18000,
+      price: 100,
       image: productBox,
     });
     toast.success('Товар добавлен в корзину!', {
