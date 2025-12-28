@@ -42,17 +42,18 @@ const Cart = () => {
     try {
       checkoutSchema.parse(formData);
 
-      // Simulate payment processing
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Generate unique order ID
+      const orderId = `WOW-${Date.now()}-${Math.random().toString(36).substring(7)}`;
 
-      // Send to Telegram via Edge Function
+      // Send initial order to Telegram
       const itemsList = items
         .map((item) => `• ${item.name} x${item.quantity} — ${(item.price * item.quantity).toLocaleString()} ₽`)
         .join('\n');
 
       const message = `
-💳 <b>Новый предзаказ</b>
+🛒 <b>Новый заказ (ожидает оплаты)</b>
 
+🆔 <b>Заказ:</b> ${orderId}
 👤 <b>Имя:</b> ${formData.name}
 📧 <b>Email:</b> ${formData.email}
 📞 <b>Телефон:</b> ${formData.phone}
@@ -69,6 +70,23 @@ ${itemsList}
         body: { message },
       });
 
+      // Create payment via IntellectMoney
+      const { data, error } = await supabase.functions.invoke('create-intellectmoney-payment', {
+        body: {
+          orderId,
+          amount: getTotalPrice(),
+          serviceName: items.map(item => item.name).join(', '),
+          userName: formData.name,
+          userEmail: formData.email,
+          userPhone: formData.phone,
+          backUrl: 'https://wowmidnight.store/cart',
+        },
+      });
+
+      if (error) {
+        throw new Error('Ошибка создания платежа');
+      }
+
       // Send confirmation email to customer
       await supabase.functions.invoke('send-order-email', {
         body: {
@@ -84,11 +102,15 @@ ${itemsList}
         },
       });
 
-      toast.success('Предзаказ оформлен!', {
-        description: 'Спасибо! Мы свяжемся с вами для подтверждения.',
-      });
-      clearCart();
-      setShowCheckout(false);
+      // Redirect to IntellectMoney payment page
+      if (data?.paymentUrl) {
+        toast.success('Переход к оплате...', {
+          description: 'Вы будете перенаправлены на страницу оплаты.',
+        });
+        window.location.href = data.paymentUrl;
+      } else {
+        throw new Error('Не удалось получить ссылку на оплату');
+      }
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast.error('Проверьте данные', {
@@ -96,7 +118,7 @@ ${itemsList}
         });
       } else {
         toast.error('Ошибка оплаты', {
-          description: 'Пожалуйста, попробуйте позже.',
+          description: error instanceof Error ? error.message : 'Пожалуйста, попробуйте позже.',
         });
       }
     } finally {
