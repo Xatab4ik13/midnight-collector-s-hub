@@ -24,10 +24,18 @@ serve(async (req) => {
     const recipientAmount = formData.get('recipientAmount');
     const recipientCurrency = formData.get('recipientCurrency');
     const paymentStatus = formData.get('paymentStatus');
-    const userName = formData.get('userName');
+    const userNameRaw = formData.get('userName') as string | null;
     const userEmail = formData.get('userEmail');
     const paymentId = formData.get('paymentId'); // IntellectMoney's payment ID
     const hash = formData.get('hash');
+    
+    // Check if userName contains invalid characters (encoding issues from IntellectMoney)
+    // If it contains replacement characters or question marks, don't use it
+    const hasValidName = userNameRaw && 
+      !userNameRaw.includes('�') && 
+      !userNameRaw.includes('?') &&
+      /^[\p{L}\p{N}\s\-']+$/u.test(userNameRaw);
+    const userName = hasValidName ? userNameRaw : null;
 
     console.log('IntellectMoney callback received:', {
       eshopId,
