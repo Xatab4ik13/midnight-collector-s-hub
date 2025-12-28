@@ -79,7 +79,7 @@ ${itemsList}
           userName: formData.name,
           userEmail: formData.email,
           userPhone: formData.phone,
-          backUrl: 'https://wowmidnight.store/cart',
+          backUrl: 'https://wowmidnight.store/success',
         },
       });
 
