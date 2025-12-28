@@ -87,22 +87,8 @@ ${itemsList}
         throw new Error('Ошибка создания платежа');
       }
 
-      // Send confirmation email to customer
-      await supabase.functions.invoke('send-order-email', {
-        body: {
-          customerName: formData.name,
-          customerEmail: formData.email,
-          items: items.map(item => ({
-            name: item.name,
-            quantity: item.quantity,
-            price: item.price,
-          })),
-          total: getTotalPrice(),
-          sendKeyEarly,
-        },
-      });
-
       // Redirect to IntellectMoney payment page
+      // Email will be sent after payment confirmation via webhook
       if (data?.paymentUrl) {
         toast.success('Переход к оплате...', {
           description: 'Вы будете перенаправлены на страницу оплаты.',
