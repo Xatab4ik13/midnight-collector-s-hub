@@ -40,7 +40,7 @@ const HeroSection = () => {
     addItem({
       id: 'wow-midnight-collectors',
       name: "WoW: Midnight Collector's Edition",
-      price: 100,
+      price: 18000,
       image: productBox,
     });
     toast.success('Товар добавлен в корзину!', {
@@ -148,7 +148,7 @@ const HeroSection = () => {
               transition={{ duration: 2, repeat: Infinity }}
             >
               <span className="text-gold font-display text-4xl md:text-5xl lg:text-6xl font-bold">
-                100 ₽
+                18 000 ₽
               </span>
             </motion.div>
 
